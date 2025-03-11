@@ -1,0 +1,10 @@
+---
+- name: Download install script
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository"
+    dest: "/tmp/wakemeops.sh"
+    mode: '0755'
+
+- name: Install repository
+  ansible.builtin.command: "/tmp/wakemeops.sh"
+  changed_when: false

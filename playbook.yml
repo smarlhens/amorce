@@ -1,0 +1,7 @@
+---
+- name: Amorce
+  hosts: localhost
+  gather_facts: false
+  become: true
+  roles:
+    - wakemeops

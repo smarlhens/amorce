@@ -1,0 +1,20 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: geerlingguy/docker-ubuntu2404-ansible:latest
+    pre_build_image: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    security_opts:
+      - seccomp=unconfined
+    cgroupns_mode: host
+provisioner:
+  name: ansible
+  log: true
+verifier:
+  name: ansible

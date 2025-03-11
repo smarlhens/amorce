@@ -1,0 +1,23 @@
+---
+- name: Verify
+  hosts: localhost
+  become: true
+  vars:
+    required_files:
+      - path: /etc/apt/trusted.gpg.d/wakemeops-keyring.gpg
+        description: "WakeMeOps keyring"
+      - path: /etc/apt/sources.list.d/wakemeops.list
+        description: "WakeMeOps repository list"
+
+  tasks:
+    - name: Check if required WakeMeOps files exist
+      ansible.builtin.stat:
+        path: "{{ item.path }}"
+      register: file_stats
+      loop: "{{ required_files }}"
+
+    - name: Verify all required files are present
+      ansible.builtin.fail:
+        msg: "{{ item.item.description }} file was not found at {{ item.item.path }}"
+      when: not item.stat.exists
+      loop: "{{ file_stats.results }}"

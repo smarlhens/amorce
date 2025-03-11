@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: localhost
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Include WakeMeOps
+      ansible.builtin.include_role:
+        name: amorce.wakemeops
